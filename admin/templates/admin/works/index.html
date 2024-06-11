@@ -22,7 +22,7 @@
                 <td>{{ work.id }}</td>
                 <td>{{ work.title }}</td>
                 <td> 
-                    <img src="{{ url_for('static', filename='uploads/' + work.image) }}" style="height: 50px;">
+                    <img src="{{ url_for('app.static', filename='uploads/' + work.image) }}" style="height: 50px;">
                 </td>
                 <td>{{ work.detail }}</td>
                 <td>
