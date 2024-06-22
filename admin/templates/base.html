@@ -55,24 +55,46 @@
         </div><!-- End Logo -->
 
 
-
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-
-
                 <li class="nav-item dropdown pe-3">
-
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{{ url_for('admin.static', filename='assets/img/profile-image.png') }}" alt="Profile" class="border border-black rounded-pill">
-                        <span class="d-none d-md-block ps-2">Tevhid AI</span>
-                    </a><!-- End Profile Iamge Icon -->
+                        <img src="{{ url_for('admin.static', filename='assets/img/profile-image.png') }}" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ session.get('fullname') }}</span>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>{{ session.get('fullname') }}</h6>
+                            <span>Admin</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-person"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
 
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="{{url_for('app.logout')}}">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
                 </li><!-- End Profile Nav -->
 
             </ul>
         </nav><!-- End Icons Navigation -->
-
     </header><!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
@@ -91,31 +113,43 @@
                     <i class="bi bi-house-fill"></i>
                     <span>Home</span>
                 </a>
-            </li><!-- End Article Nav -->
+            </li><!-- End Home Nav -->
             <li class="nav-item">
                 <a class="nav-link " href="{{url_for('admin.info.index')}}">
                     <i class="bi bi-info-circle-fill"></i>
                     <span>Info</span>
                 </a>
-            </li><!-- End Article Nav -->
+            </li><!-- End Info Nav -->
             <li class="nav-item">
                 <a class="nav-link " href="{{url_for('admin.works.index')}}">
                     <i class="bi bi-award-fill"></i>
                     <span>Works</span>
                 </a>
-            </li><!-- End Article Nav -->
+            </li><!-- End Works Nav -->
             <li class="nav-item">
                 <a class="nav-link " href="{{url_for('admin.technologies.index')}}">
                     <i class="bi bi-card-checklist"></i>
                     <span>Technologies</span>
                 </a>
-            </li><!-- End Article Nav -->
+            </li><!-- End Technologies Nav -->
             <li class="nav-item">
                 <a class="nav-link " href="{{url_for('admin.contact.index')}}">
                     <i class="bi bi-person-rolodex"></i>
                     <span>Contact</span>
                 </a>
-            </li><!-- End Article Nav -->
+            </li><!-- End Contact Nav -->
+            <li class="nav-item">
+                <a class="nav-link " href="{{url_for('admin.whatsapp.index')}}">
+                    <i class="bi bi-whatsapp"></i>
+                    <span>Whatsapp Number</span>
+                </a>
+            </li><!-- End Whatsapp Number Nav -->
+            <li class="nav-item">
+                <a class="nav-link " href="{{url_for('app.index')}}">
+                    <i class="bi bi-browser-chrome"></i>
+                    <span>Tevhid AI Tanitim</span>
+                </a>
+            </li><!-- End Tevhid AI Tanitim Nav -->
             <!-- -->
             <!-- End Navigation Nav -->
 

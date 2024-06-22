@@ -18,38 +18,26 @@ def save_file(file, folder_name,new_name = None):
     return file_name
 
 def random_filename_for_technology(file_name):
-    import random, datetime
+    import random
     extension = file_name.split('.')[-1]
-    year = datetime.datetime.now().year
-    month = datetime.datetime.now().month
-    day = datetime.datetime.now().day
-    return str(year) + '_' + str(month) + '_' + str(day) + '_' + 'technology' + '_' + str(random.randint(1,1000)) + '.' + extension
+    return 'technology' + '_' + str(random.randint(1,1000)) + '.' + extension
 
 
 def random_filename_for_info(file_name):
     import random, datetime
     extension = file_name.split('.')[-1]
-    year = datetime.datetime.now().year
-    month = datetime.datetime.now().month
-    day = datetime.datetime.now().day
-    return str(year) + '_' + str(month) + '_' + str(day) + '_' + 'info' + '_' + str(random.randint(1,1000)) + '.' + extension
+    return 'info' + '_' + str(random.randint(1,1000)) + '.' + extension
 
 
 def random_filename_for_home(file_name):
     import random, datetime
     extension = file_name.split('.')[-1]
-    year = datetime.datetime.now().year
-    month = datetime.datetime.now().month
-    day = datetime.datetime.now().day
-    return str(year) + '_' + str(month) + '_' + str(day) + '_' + 'home' + '_' + str(random.randint(1,1000)) + '.' + extension
+    return 'home' + '_' + str(random.randint(1,1000)) + '.' + extension
 
 def random_filename_for_works(file_name):
     import random, datetime
     extension = file_name.split('.')[-1]
-    year = datetime.datetime.now().year
-    month = datetime.datetime.now().month
-    day = datetime.datetime.now().day
-    return str(year) + '_' + str(month) + '_' + str(day) + '_' + 'works' + '_' + str(random.randint(1,1000)) + '.' + extension
+    return 'works' + '_' + str(random.randint(1,1000)) + '.' + extension
 
 def get_file_extension(file_name):
     return file_name.split('.')[-1]

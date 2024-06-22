@@ -1,17 +1,28 @@
 from . import works_bp
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_ckeditor import CKEditor
 from models import db, Works
 from .forms import WorksForm
 from helpers import *
+from functools import wraps
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('is_logged_in'):
+            return redirect(url_for('app.login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 @works_bp.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     works = Works.query.all()
     return render_template('admin/works/index.html', works=works)
 
 
 @works_bp.route('/add', methods=['GET', 'POST'])
+@login_required
 def add():
     workForm = WorksForm()
     if request.method == 'POST':
@@ -38,6 +49,7 @@ def add():
 
 
 @works_bp.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
 def update(id):
     work = Works.query.get(id)
     get_name_for_delete = work.image
@@ -54,6 +66,7 @@ def update(id):
     return render_template('admin/works/update.html', work=work)
 
 @works_bp.route('/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
 def delete(id):
     work = Works.query.get(id)
     file_name_for_delete= work.image

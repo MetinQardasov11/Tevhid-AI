@@ -1,17 +1,28 @@
 from . import technologies_bp
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_ckeditor import CKEditor
 from models import db, Technologies
 from .forms import TechnologiesForm
 from helpers import *
+from functools import wraps
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('is_logged_in'):
+            return redirect(url_for('app.login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 @technologies_bp.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     technologies = Technologies.query.all()
     return render_template('admin/technologies/index.html', technologies=technologies)
 
 
 @technologies_bp.route('/add', methods=['GET', 'POST'])
+@login_required
 def add():
     technologyForm = TechnologiesForm()
     if request.method == 'POST':
@@ -38,6 +49,7 @@ def add():
 
 
 @technologies_bp.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
 def update(id):
     technology = Technologies.query.get(id)
     get_name_for_delete = technology.image
@@ -54,6 +66,7 @@ def update(id):
     return render_template('admin/technologies/update.html', technology=technology)
 
 @technologies_bp.route('/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
 def delete(id):
     technology = Technologies.query.get(id)
     file_name_for_delete= technology.image

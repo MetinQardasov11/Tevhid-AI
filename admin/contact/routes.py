@@ -1,9 +1,19 @@
 from . import contact_bp
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 from models import db, Contact
 from .forms import ContactForm
+from functools import wraps
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('is_logged_in'):
+            return redirect(url_for('app.login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 @contact_bp.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     contacts = Contact.query.all()
     return render_template('admin/contact/index.html', contacts=contacts)
@@ -29,6 +39,7 @@ def add():
 
 
 @contact_bp.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
 def update(id):
     contact = Contact.query.get(id)
     if request.method == 'POST':
@@ -45,6 +56,7 @@ def update(id):
 
 
 @contact_bp.route('/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
 def delete(id):
     contact = Contact.query.get(id)
     db.session.delete(contact)
